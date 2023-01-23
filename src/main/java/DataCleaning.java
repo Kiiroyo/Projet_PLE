@@ -70,10 +70,10 @@ public class DataCleaning extends Configured implements Tool {
 		MultipleInputs.addInputPath(job, new Path(args[0] + "P1/P1.csv" ), TextInputFormat.class, DataCleaningMapperP1.class);
 		//MultipleInputs.addInputPath(job, new Path(args[1]), TextInputFormat.class, JoinMapperRegions.class);
 		
-		job.setMapOutputKeyClass(NullWritable.class);
+		job.setMapOutputKeyClass(Text.class);
 		job.setMapOutputValueClass(Text.class);
 
-		job.setOutputKeyClass(NullWritable.class);
+		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(Text.class);
 		job.setOutputFormatClass(SequenceFileOutputFormat.class);
 		

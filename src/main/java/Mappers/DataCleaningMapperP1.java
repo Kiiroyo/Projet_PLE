@@ -31,7 +31,7 @@ public class DataCleaningMapperP1 extends Mapper<LongWritable, Text, NullWritabl
 				destination = "Cours de la Libération";
 			}
 			
-			context.write(NullWritable.get(), new Text(hordatage[0] + "," + time[0] + "," + time[1] + "," + in + "," + destination));
+			context.write(NullWritable.get(), new Text(hordatage[0] + "," + time[0] + "," + time[1] + "," + data[1] + "," + in + "," + destination));
 		}
 }
 
