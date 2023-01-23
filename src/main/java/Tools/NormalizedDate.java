@@ -1,17 +1,29 @@
 package Tools;
 
-public class Horodate {
+
+
+public class NormalizedDate {
     private String date;
     private String hour;
     private String minutes;
+
+    private static String THE_MONTH = "10";
+    private static String THE_YEAR = "2022";
     
-    public Horodate (String horodate){
+    public NormalizedDate (String horodate){
         String[] data = horodate.split(" ");
 		String[] time = data[1].split(":");
 
         this.date = data[0];
         this.hour = time[0];
         this.minutes = time[1];
+    }
+
+    public NormalizedDate (String jour, String heures_minutes){
+        
+        this.date = THE_YEAR + "/" + THE_MONTH + "/" + jour;
+        this.hour = heures_minutes.substring(0, 3);
+        this.minutes = heures_minutes.substring(2, 5);
     }
 
     public String getDate(){

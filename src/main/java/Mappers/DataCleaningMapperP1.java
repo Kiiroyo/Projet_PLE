@@ -3,14 +3,15 @@ package Mappers;
 import java.io.IOException;
 
 import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+
+import Tools.NormalizedDate;
 
 
 //ID,Catégorie,horodate,vers CROUS,vers Cours de la Libération
 
-public class DataCleaningMapperP1 extends Mapper<LongWritable, Text, NullWritable, Text>{
+public class DataCleaningMapperP1 extends Mapper<LongWritable, Text, Text, Text>{
 		
 		@Override
 		public void map(LongWritable key, Text value, Context context ) throws IOException, InterruptedException {
@@ -19,19 +20,19 @@ public class DataCleaningMapperP1 extends Mapper<LongWritable, Text, NullWritabl
 
 			String[] data = value.toString().split(",");
 			
-			String[] hordatage = data[2].split(" ");
-			String[] time = hordatage[1].split(":");
+			NormalizedDate date = new NormalizedDate(data[2]);
 			
 			boolean in = data[3].equals("1");
 			
 			String destination;
 			if (in){
-				destination = "Crous";
+				destination = "CROUS";
 			}else {
 				destination = "Cours de la Libération";
 			}
 			
-			context.write(NullWritable.get(), new Text(hordatage[0] + "," + time[0] + "," + time[1] + "," + data[1] + "," + in + "," + destination));
+			// <capteur, (jour, heures, minutes, catégorie, entre sur la fac ?, destination)>
+			context.write(new Text("P1"), new Text(date.getDate() + "," + date.getHours() + "," + date.getMinutes() + "," + data[1] + "," + in + "," + destination));
 		}
 }
 
