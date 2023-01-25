@@ -1,3 +1,4 @@
+package Jobs;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -98,7 +99,7 @@ public class DataCleaning extends Configured implements Tool {
 	}
 	
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		System.exit(ToolRunner.run(new DataCleaning(), args));
 	}
 

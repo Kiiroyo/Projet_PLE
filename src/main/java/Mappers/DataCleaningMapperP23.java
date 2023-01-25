@@ -27,8 +27,8 @@ public class DataCleaningMapperP23 extends Mapper<LongWritable, Text, Text, Text
 			//TODO : seulement des entrées dans la fac ??
 			boolean in = true;
 			
-            // <capteur, (jour, heures, minutes, catégorie, entre sur la fac ?, destination)>
-			context.write(new Text("P23"), new Text(date.getDate() + "," + date.getHours() + "," + date.getMinutes() + "," + data[5] + "," + in + "," + ""));
+            // <capteur, (jour, heures, minutes, catégorie, entre sur la fac ?, vitesse)>
+			context.write(new Text("P23"), new Text(date.getDate() + "," + date.getHours() + "," + date.getMinutes() + "," + data[5] + "," + in + "," + data[4]));
 		}
 }
 

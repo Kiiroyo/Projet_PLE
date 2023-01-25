@@ -35,9 +35,6 @@ public class DataCleaningMapperP20 extends Mapper<LongWritable, Text, Text, Text
 			String[] data = value.toString().split(",");
 			
 			NormalizedDate date = new NormalizedDate(data[2]);
-			
-            String start = data[3];
-            String end = data[4];
             boolean in = false;
 			
             // <capteur, (jour, heures, minutes, catégorie, entre sur la fac ?, vitesse)>
