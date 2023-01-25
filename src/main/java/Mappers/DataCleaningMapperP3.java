@@ -19,9 +19,10 @@ public class DataCleaningMapperP3 extends Mapper<LongWritable, Text, Text, Text>
 
 
         // TODO : Savoir le sens : in ..
+        boolean in = true;
 
 
-        context.write(new Text("P3"), new Text(date.getDate() + "," + date.getHours() + "," + date.getMinutes() + "," + data[6] + "," + "" + "," + ""));
+        context.write(new Text("P3"), new Text(date.getDate() + "," + date.getHours() + "," + date.getMinutes() + "," + data[6] + "," + in + "," + data[4]));
 
     }
 }

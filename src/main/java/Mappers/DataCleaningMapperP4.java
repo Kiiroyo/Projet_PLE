@@ -21,7 +21,7 @@ public class DataCleaningMapperP4 extends Mapper<LongWritable, Text, Text, Text>
 
         boolean in = data[0].equals("2");
 
-
-        context.write(new Text("P4"), new Text(date.getDate() + "," + date.getHours() + "," + date.getMinutes() + "," + data[6] + "," + in + "," + ""));
+        // <capteur, (jour, heures, minutes, catégorie, entre sur la fac ?, vitesse)>
+        context.write(new Text("P4"), new Text(date.getDate() + "," + date.getHours() + "," + date.getMinutes() + "," + data[6] + "," + in + "," + data[4]));
     }
 }

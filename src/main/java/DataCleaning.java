@@ -19,6 +19,16 @@ import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
 import Mappers.DataCleaningMapperP1;
+import Mappers.DataCleaningMapperP10;
+import Mappers.DataCleaningMapperP12;
+import Mappers.DataCleaningMapperP13;
+import Mappers.DataCleaningMapperP17;
+import Mappers.DataCleaningMapperP19;
+import Mappers.DataCleaningMapperP23;
+import Mappers.DataCleaningMapperP24;
+import Mappers.DataCleaningMapperP26;
+import Mappers.DataCleaningMapperP3;
+import Mappers.DataCleaningMapperP4;
 
 public class DataCleaning extends Configured implements Tool {
 	
@@ -68,8 +78,51 @@ public class DataCleaning extends Configured implements Tool {
 		job.setJarByClass(DataCleaning.class);
 		
 		MultipleInputs.addInputPath(job, new Path(args[0] + "P1/P1.csv" ), TextInputFormat.class, DataCleaningMapperP1.class);
-		//MultipleInputs.addInputPath(job, new Path(args[1]), TextInputFormat.class, JoinMapperRegions.class);
-		
+
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P10/P10.csv" ), TextInputFormat.class, DataCleaningMapperP10.class);
+
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P12/P12.csv" ), TextInputFormat.class, DataCleaningMapperP12.class);
+
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P13/P13.csv" ), TextInputFormat.class, DataCleaningMapperP13.class);
+
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P17/P17_Vers_Avenue_Schweitzer.csv" ), TextInputFormat.class, DataCleaningMapperP17.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P17/P17_Vers_P16.csv" ), TextInputFormat.class, DataCleaningMapperP17.class);
+
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P19/P19_Entree.csv" ), TextInputFormat.class, DataCleaningMapperP19.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P19/P19_Sortie.csv" ), TextInputFormat.class, DataCleaningMapperP19.class);
+
+		// TODO
+		//MultipleInputs.addInputPath(job, new Path(args[0] + "P2/P2_semaine_1.csv" ), TextInputFormat.class, DataCleaningMapperP2.class);
+		//MultipleInputs.addInputPath(job, new Path(args[0] + "P2/P2_semaine_2.csv" ), TextInputFormat.class, DataCleaningMapperP2.class);
+
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P23/P23_Vers_BEC_1.csv" ), TextInputFormat.class, DataCleaningMapperP23.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P23/P23_Vers_BEC_2.csv" ), TextInputFormat.class, DataCleaningMapperP23.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P23/P23_Vers_COSEC.csv" ), TextInputFormat.class, DataCleaningMapperP23.class);
+
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P24/P24_Vers_Fac.csv" ), TextInputFormat.class, DataCleaningMapperP24.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P24/P24_Vers_Rocade.csv" ), TextInputFormat.class, DataCleaningMapperP24.class);
+
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P26/P26_Vers_Fac_1.csv" ), TextInputFormat.class, DataCleaningMapperP26.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P26/P26_Vers_Fac_2.csv" ), TextInputFormat.class, DataCleaningMapperP26.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P26/P26_Vers_Fac_3.csv" ), TextInputFormat.class, DataCleaningMapperP26.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P26/P26_Vers_Rocade_1.csv" ), TextInputFormat.class, DataCleaningMapperP26.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P26/P26_Vers_Rocade_2.csv" ), TextInputFormat.class, DataCleaningMapperP26.class);  
+
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P3/Mixtra_Sortie_Fac_1.csv" ), TextInputFormat.class, DataCleaningMapperP3.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P3/Mixtra_Sortie_Fac_2.csv" ), TextInputFormat.class, DataCleaningMapperP3.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P3/Mixtra_Sortie_Fac_3.csv" ), TextInputFormat.class, DataCleaningMapperP3.class);
+
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P4/P4_Sortie_Fac.csv" ), TextInputFormat.class, DataCleaningMapperP4.class);
+
+		//TODO
+		//MultipleInputs.addInputPath(job, new Path(args[0] + "P5/P5.csv" ), TextInputFormat.class, DataCleaningMapperP5.class);
+
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P9/P9_Vers_Fac_1.csv" ), TextInputFormat.class, DataCleaningMapperP1.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P9/P9_Vers_Fac_2.csv" ), TextInputFormat.class, DataCleaningMapperP1.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P9/P9_Vers_Talence_1.csv" ), TextInputFormat.class, DataCleaningMapperP1.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P9/P9_Vers_Talence_2.csv" ), TextInputFormat.class, DataCleaningMapperP1.class);
+
+
 		job.setMapOutputKeyClass(Text.class);
 		job.setMapOutputValueClass(Text.class);
 

@@ -21,14 +21,8 @@ public class DataCleaningMapperP10 extends Mapper<LongWritable, Text, Text, Text
 
         boolean out = data[3].equals("x");
 
-        String destination;
-        if (out) {
-            destination = "vers sortie";
-        } else {
-            destination = "vers entrée";
-        }
-
-        context.write(new Text("P10"), new Text(date.getDate() + "," + date.getHours() + "," + date.getMinutes() + "," + data[1] + "," + out + "," + destination));
+        // <capteur, (jour, heures, minutes, catégorie, entre sur la fac ?, vitesse)>
+        context.write(new Text("P10"), new Text(date.getDate() + "," + date.getHours() + "," + date.getMinutes() + "," + data[1] + "," + out + "," + ""));
 
     }
 }
