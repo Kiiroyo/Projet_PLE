@@ -4,7 +4,7 @@ all: package send
 package:
 	mvn package
 compile:
-	mvn install
+	mvn install -X
 
 send:
-	scp $(jar) "dnash@147.210.117.54:/home/ahabachi/downloads"
+	scp $(jar) "dnash@147.210.117.54:/"

@@ -32,44 +32,6 @@ import Mappers.DataCleaningMapperP4;
 
 public class DataCleaning extends Configured implements Tool {
 	
-	public static class JoinMapperCities
-	extends Mapper<LongWritable, Text, Text, Text>{
-		
-		@Override
-		public void map(LongWritable key, Text value, Context context
-				) throws IOException, InterruptedException {
-			// on retire la premiere ligne (le header)
-			if(key.get() == 0L) return;
-			
-			String[] tokens = value.toString().split(",");
-			String country = tokens[0].toLowerCase();
-			String regCode = tokens[3];
-			String cityName = tokens[1];
-			
-			String k = country+","+regCode;
-			
-			context.write(new Text(k), new Text(cityName + true));
-		}
-	}
-	
-	public static class JoinMapperRegions
-	extends Mapper<LongWritable, Text, Text, Text>{
-		
-		@Override
-		public void map(LongWritable key, Text value, Context context
-				) throws IOException, InterruptedException {
-			// pas de header dans le fichier des regions
-			
-			String[] tokens = value.toString().split(",");
-			String country = tokens[0].toLowerCase();
-			String regCode = tokens[1];
-			String regName = tokens[2];
-			
-			String k = country+","+regCode;
-			
-			context.write(new Text(k), new Text(regName + false));
-		}
-	}
 	
 	public int run(String[] args) throws Exception {
 		Configuration conf = new Configuration();
@@ -136,7 +98,7 @@ public class DataCleaning extends Configured implements Tool {
 	}
 	
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		System.exit(ToolRunner.run(new DataCleaning(), args));
 	}
 
