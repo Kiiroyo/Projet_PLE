@@ -5,13 +5,15 @@ import java.io.IOException;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.util.curator.ZKCuratorManager.SafeTransaction;
 
 import Tools.NormalizedDate;
 
 
 //ID,Cat�gorie,Horodate,d�tection de d�part,d�tection de sortie,REMARQUE
 
-/** Si départ E, sortie S1 ou S3 : entre dans la fac
+/*
+* Si départ E, sortie S1 ou S3 : entre dans la fac
 * Si départ E, sortie S2 : passe à côté de la fac
 
 * Si départ S1, sortie S2 ou E : sort de la fac
@@ -34,8 +36,16 @@ public class DataCleaningMapperP20 extends Mapper<LongWritable, Text, Text, Text
 			
 			NormalizedDate date = new NormalizedDate(data[2]);
 			
-            //TODO Important : in or out du coup ????
-			boolean in = data[3].equals("1");
+            String start = data[3];
+            String end = data[4];
+            boolean in = false;
+
+            if (start.equals("E")){
+                if (! end.equals("S2")){
+                    //TODO
+                }
+            }
+			 
 			
             // <capteur, (jour, heures, minutes, catégorie, entre sur la fac ?, destination)>
 			context.write(new Text("P120"), new Text(date.getDate() + "," + date.getHours() + "," + date.getMinutes() + "," + data[1] + "," + in + "," + ""));

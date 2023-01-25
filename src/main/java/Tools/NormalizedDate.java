@@ -19,11 +19,15 @@ public class NormalizedDate {
         this.minutes = time[1];
     }
 
-    public NormalizedDate (String jour, String heures_minutes){
-        
-        this.date = THE_YEAR + "/" + THE_MONTH + "/" + jour;
-        this.hour = heures_minutes.substring(0, 3);
-        this.minutes = heures_minutes.substring(2, 5);
+    public NormalizedDate (String jour, String heuresMinutes){
+        if ( jour.split("/").length != 3){
+            this.date = THE_YEAR + "/" + THE_MONTH + "/" + jour;
+        }
+        else {
+            this.date = jour;
+        }
+        this.hour = heuresMinutes.substring(0, 3);
+        this.minutes = heuresMinutes.substring(2, 5);
     }
 
     public String getDate(){
