@@ -13,21 +13,32 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.SequenceFileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
-import org.apache.log4j.Logger;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
+import Tools.CapteurWritable;
+import Tools.DataStatistiques;
+import Tools.Summary;
 
 //<capteur, (jour, heures, minutes, catégorie, entre sur la fac ?, vitesse)>
-public class BatchProcessingMapper extends Mapper<Text, NullWritable, Text, Text> {
+public class BatchProcessingDayReducer extends Reducer<IntWritable, CapteurWritable, IntWritable, CapteurWritable> {
 
     @Override
-    protected void map(Text key, NullWritable value, Mapper<Text, NullWritable, Text, Text>.Context context) throws IOException, InterruptedException {
-        String[] data = key.toString().split(",");
-        context.write(new Text(data[0]), new Text(key.toString()));
+    protected void reduce(IntWritable key, Iterable<CapteurWritable> values, Reducer<IntWritable, CapteurWritable, IntWritable, CapteurWritable>.Context context) throws IOException, InterruptedException {
+        DataStatistiques statistics = new DataStatistiques();
+        for (CapteurWritable capteur : values){
+            statistics.addData(capteur);
+            
+            // < hours , données >
+            context.write(new IntWritable(capteur.getHours()), capteur); 
+        }
+        Summary summary = statistics.computeSummary();
+
+        //TODO : enregistrer dans Hbase 
+
+        
     }
 
-    
 }

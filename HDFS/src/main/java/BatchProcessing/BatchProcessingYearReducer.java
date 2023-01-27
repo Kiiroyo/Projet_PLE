@@ -17,17 +17,28 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.util.TreeSet;
+
+import Tools.CapteurWritable;
+import Tools.DataStatistiques;
+import Tools.Summary;
 
 //<capteur, (jour, heures, minutes, catégorie, entre sur la fac ?, vitesse)>
-public class BatchProcessingReducer extends Reducer<Text, Text, IntWritable, Text> {
+public class BatchProcessingYearReducer extends Reducer<IntWritable, CapteurWritable, IntWritable, CapteurWritable> {
 
     @Override
-    protected void reduce(Text key, Iterable<Text> values, Reducer<Text, Text, IntWritable, Text>.Context context) throws IOException, InterruptedException {
-        
-        for (Text value : values){
-            String[] data = value.toString().split(","); 
+    protected void reduce(IntWritable key, Iterable<CapteurWritable> values, Reducer<IntWritable, CapteurWritable, IntWritable, CapteurWritable>.Context context) throws IOException, InterruptedException {
+        DataStatistiques statistics = new DataStatistiques();
+        for (CapteurWritable capteur : values){
+            statistics.addData(capteur);
+            
+            // < mois , données >
+            context.write(new IntWritable(capteur.getMonth()), capteur); 
         }
+        Summary summary = statistics.computeSummary();
+
+        //TODO : enregistrer dans Hbase 
+
+        
     }
 
 }
