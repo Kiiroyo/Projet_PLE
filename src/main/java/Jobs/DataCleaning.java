@@ -36,8 +36,8 @@ public class DataCleaning extends Configured implements Tool {
 	
 	public int run(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		Job job = Job.getInstance(conf, "MRJoin");
-		job.setNumReduceTasks(1);
+		Job job = Job.getInstance(conf, "Data Cleanning");
+		job.setNumReduceTasks(0);
 		job.setJarByClass(DataCleaning.class);
 		
 		MultipleInputs.addInputPath(job, new Path(args[0] + "P1/P1.csv" ), TextInputFormat.class, DataCleaningMapperP1.class);
