@@ -7,4 +7,4 @@ compile:
 	mvn install -X
 
 send:
-	scp $(jar) "dnash@147.210.117.54:/"
+	scp $(jar) "$(name)@147.210.117.54:/"
