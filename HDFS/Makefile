@@ -6,5 +6,7 @@ package:
 compile:
 	mvn install -X
 
+name= "default"
+
 send:
 	scp $(jar) "$(name)@147.210.117.54:/"
