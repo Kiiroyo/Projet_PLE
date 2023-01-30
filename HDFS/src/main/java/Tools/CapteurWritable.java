@@ -4,8 +4,9 @@ import org.apache.hadoop.io.Writable;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class CapteurWritable  implements org.apache.hadoop.io.Writable , Comparable<CapteurWritable>, Cloneable{
+public class CapteurWritable  implements org.apache.hadoop.io.Writable , Comparable<CapteurWritable>, Cloneable, Serializable{
 
     //<capteur, (jour, heures, minutes, catégorie, entre sur la fac ?, vitesse)>
     private String capteurID;
