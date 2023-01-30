@@ -1,7 +1,9 @@
-Mappers/BatchProcessingMonthReducer.class
-Mappers/BatchProcessingHoursReducer.class
+batch_processing/BatchProcessingMonthReducer.class
+batch_processing/Spark.class
+batch_processing/BatchProcessingDayReducer.class
+batch_processing/BatchProcessingYearReducer.class
+batch_processing/BatchProcessingMapper.class
+batch_processing/BatchProcessingHoursReducer.class
 Tools/Summary.class
 Tools/CapteurWritable.class
-Mappers/BatchProcessingDayReducer.class
 Tools/DataStatistiques.class
-Mappers/BatchProcessingYearReducer.class

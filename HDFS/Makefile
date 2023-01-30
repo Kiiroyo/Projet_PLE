@@ -10,3 +10,4 @@ compile:
 
 send:
 	scp $(jar) "$(name)@147.210.117.54:/"
+	scp $(jar) "$(name)@147.210.117.54:/"

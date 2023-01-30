@@ -12,6 +12,7 @@ public class NormalizedDate {
     
     public NormalizedDate (String horodate){
         String[] data = horodate.split(" ");
+        System.out.println(data.length);
 		String[] time = data[1].split(":");
 
         this.date = data[0];
@@ -26,8 +27,9 @@ public class NormalizedDate {
         else {
             this.date = jour;
         }
+        System.out.println(heuresMinutes.length());
         this.hour = heuresMinutes.substring(0, 3);
-        this.minutes = heuresMinutes.substring(2, 5);
+        this.minutes = heuresMinutes.substring(2);
     }
 
     public String getDate(){
