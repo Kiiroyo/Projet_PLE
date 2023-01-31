@@ -19,17 +19,8 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-import Mappers.DataCleaningMapperP1;
-import Mappers.DataCleaningMapperP10;
-import Mappers.DataCleaningMapperP12;
-import Mappers.DataCleaningMapperP13;
-import Mappers.DataCleaningMapperP17;
-import Mappers.DataCleaningMapperP19;
-import Mappers.DataCleaningMapperP23;
-import Mappers.DataCleaningMapperP24;
-import Mappers.DataCleaningMapperP26;
-import Mappers.DataCleaningMapperP3;
-import Mappers.DataCleaningMapperP4;
+import Mappers.*;
+import Tools.*;
 
 public class DataCleaning extends Configured implements Tool {
 	
@@ -87,10 +78,10 @@ public class DataCleaning extends Configured implements Tool {
 
 
 		job.setMapOutputKeyClass(Text.class);
-		job.setMapOutputValueClass(Text.class);
+		job.setMapOutputValueClass(CapteurWritable.class);
 
 		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(Text.class);
+		job.setOutputValueClass(CapteurWritable.class);
 		job.setOutputFormatClass(SequenceFileOutputFormat.class);
 		
 		TextOutputFormat.setOutputPath(job, new Path(args[1]));

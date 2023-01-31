@@ -1,6 +1,8 @@
 package Tools;
 
-public class Summary {
+import java.io.Serializable;
+
+public class Summary implements Serializable{
     
     private int totalIn;
     private int totalOut;

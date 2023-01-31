@@ -1,13 +1,13 @@
 package Mappers;
 
-import Tools.NormalizedDate;
+import Tools.*;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.IOException;
 
-public class DataCleaningMapperP10 extends Mapper<LongWritable, Text, Text, Text> {
+public class DataCleaningMapperP10 extends Mapper<LongWritable, Text, Text, CapteurWritable> {
 
     // ID - Category - Horodate - vers sortie - vers entrée
     @Override
@@ -22,7 +22,7 @@ public class DataCleaningMapperP10 extends Mapper<LongWritable, Text, Text, Text
         boolean out = data[3].equals("x");
 
         // <capteur, (jour, heures, minutes, catégorie, entre sur la fac ?, vitesse)>
-        context.write(new Text("P10"), new Text(date.getDate() + "," + date.getHours() + "," + date.getMinutes() + "," + data[1] + "," + out + "," + ""));
+        context.write(new Text("P10"), new CapteurWritable("P10",date, data[1], 0.0, !out));
 
     }
 }

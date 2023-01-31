@@ -37,6 +37,6 @@ public class DataCleaningMapperP20 extends Mapper<LongWritable, Text, Text, Text
             boolean in = false;
 			
             // <capteur, (jour, heures, minutes, catégorie, entre sur la fac ?, vitesse)>
-			context.write(new Text("P120"), new Text(date.getDate() + "," + date.getHours() + "," + date.getMinutes() + "," + data[1] + "," + in + "," + ""));
+			//context.write(new Text("P120"), new Text(date.getDate() + "," + date.getHours() + "," + date.getMinutes() + "," + data[1] + "," + in + "," + ""));
 		}
 }

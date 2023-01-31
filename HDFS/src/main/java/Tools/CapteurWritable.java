@@ -1,82 +1,58 @@
 package Tools;
 
+
 import org.apache.hadoop.io.Writable;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.io.Serializable;
 
+import static org.apache.hadoop.io.WritableUtils.*;
+
+
+import Tools.*;
+
 public class CapteurWritable  implements org.apache.hadoop.io.Writable , Comparable<CapteurWritable>, Cloneable, Serializable{
 
     //<capteur, (jour, heures, minutes, catégorie, entre sur la fac ?, vitesse)>
-    private String capteurID;
-    private int year;
-    private int month;
-    private int day;
-    private int hours;
-    private double minutes;
-    private String categoty;
-    private double speed;
-    private boolean in;
+    public String capteurID;
+    public int year;
+    public int month;
+    public int day;
+    public int hours;
+    public double minutes;
+    public String category;
+    public double speed;
+    public boolean in;
 
+    public CapteurWritable(){
 
-    public CapteurWritable(String capteurID, int year, int month, int day, int hours, double minutes, String category, double speed, boolean in) {
+    }
+
+    public CapteurWritable(String capteurID, NormalizedDate date, String category, double speed, boolean in) {
         this.capteurID = capteurID;
-        this.year = year;
-        this.month = month;
-        this.day = day;
-        this.hours = hours;
-        this.minutes = minutes;
-        this.categoty = category;
+        this.year = date.getYear();
+        this.month = date.getMonth();
+        this.day = date.getDay();
+        this.hours = date.getHour();
+        this.minutes = date.getMinutes();
+        this.category = category;
         this.speed = speed;
         this.in = in;
     }
 
-    public String getCapteurID() {
-        return this.capteurID;
-    }
-
-    public int getYear() {
-        return this.year;
-    }
-
-    public int getMonth() {
-        return this.month;
-    }
-
-    public int getDay() {
-        return this.day;
-    }
-
-    public int getHours() {
-        return this.hours;
-    }
-
-    public double getMinutes() {
-        return this.minutes;
-    }
-
-    public String getCategoty() {
-        return this.categoty;
-    }
-
-    public double getSpeed() {
-        return this.speed;
-    }
-
-    public boolean getIn() {
-        return this.in;
-    }
 
     //@Override
     public void write(DataOutput out) throws IOException {
         out.writeUTF(capteurID);
+        //writeString(out, capteurID);
         out.writeInt(year);
         out.writeInt(month);
         out.writeInt(day);
         out.writeInt(hours);
         out.writeDouble(minutes);
-        out.writeUTF(categoty);
+        out.writeUTF(category);
+        //writeString(out, category);
         out.writeDouble(speed);
         out.writeBoolean(in);
     }
@@ -89,7 +65,7 @@ public class CapteurWritable  implements org.apache.hadoop.io.Writable , Compara
         this.day = in.readInt();
         this.hours = in.readInt();
         this.minutes = in.readDouble();
-        this.categoty = in.readUTF();
+        this.category = in.readUTF();
         this.speed = in.readDouble();
         this.in = in.readBoolean();
     }
@@ -108,7 +84,7 @@ public class CapteurWritable  implements org.apache.hadoop.io.Writable , Compara
 
         int sumCompared = yearCompared + monthCompared + dayCompared + hoursCompared+ minutesCompared  + capteurCompared + speedCompared; 
 
-        return (sumCompared == 0 && this.in == capteur.in) ? this.categoty.compareToIgnoreCase(capteur.categoty) * -1 : sumCompared;
+        return (sumCompared == 0 && this.in == capteur.in) ? this.category.compareToIgnoreCase(capteur.category) * -1 : sumCompared;
     }
 
     @Override
@@ -121,12 +97,38 @@ public class CapteurWritable  implements org.apache.hadoop.io.Writable , Compara
             clone.day = this.day;
             clone.hours = this.hours;
             clone.minutes = this.minutes;
-            clone.categoty = this.categoty;
+            clone.category = this.category;
             clone.speed = this.speed;
             clone.in = this.in;
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
-    }   
+    }  
+    
+    /*@Override
+    private  void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        this.capteurID = in.readUTF();
+        this.year = in.readInt();
+        this.month = in.readInt();
+        this.day = in.readInt();
+        this.hours = in.readInt();
+        this.minutes = in.readDouble();
+        this.categoty = in.readUTF();
+        this.speed = in.readDouble();
+        this.in = in.readBoolean();
+   }
+
+    // méthode writeObject, utilisée lors de la sérialization
+    private  void writeObject(ObjectOutputStream out) throws IOException {
+        out.writeUTF(capteurID);
+        out.writeInt(year);
+        out.writeInt(month);
+        out.writeInt(day);
+        out.writeInt(hours);
+        out.writeDouble(minutes);
+        out.writeUTF(categoty);
+        out.writeDouble(speed);
+        out.writeBoolean(in);
+   }*/
 }
