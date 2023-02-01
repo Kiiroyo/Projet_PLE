@@ -8,7 +8,7 @@ import { MainComponent } from './main/main.component';
 import { TopWidgetsComponent } from './top-widgets/top-widgets.component';
 import { TrafficVisualizationComponent } from './traffic-visualization/traffic-visualization.component';
 import { CategoryComponent } from './category/category.component';
-import { MapComponent } from './map/map.component';
+
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 @NgModule({
@@ -20,7 +20,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     TopWidgetsComponent,
     TrafficVisualizationComponent,
     CategoryComponent,
-    MapComponent
+
   ],
   imports: [
     BrowserModule,
