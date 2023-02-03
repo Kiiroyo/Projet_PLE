@@ -14,11 +14,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import batch_processing.Spark;
-import Jobs.DataCleaning;
+import Jobs.*;
 public class Main {
     
     public static void main(String[] args) throws Exception {
        //DataCleaning.main(args);
-        Spark.main(args[0]);
+        BatchProcessing.main(args);
+        //Spark.main(args[0]);
     }
 }

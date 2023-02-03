@@ -17,13 +17,14 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-import Mappers.BatchProcessingMapper;
-import Mappers.BatchProcessingReducer;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.TreeSet;
+
+import Tools.*;
+import batch_processing.*;
 
 public class BatchProcessing extends Configured implements Tool {
 	
@@ -31,21 +32,22 @@ public class BatchProcessing extends Configured implements Tool {
 	public int run(String[] args) throws Exception {
 		Configuration conf = new Configuration();
 
-        Job job = Job.getInstance(conf, "TD2-nhubner-topk");
+        Job job = Job.getInstance(conf, "BatchProcessing");
         job.setNumReduceTasks(1);
         job.setJarByClass(BatchProcessing.class);
 
         job.setMapperClass(BatchProcessingMapper.class);
         job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(Text.class);
+        job.setMapOutputValueClass(CapteurWritable.class);
 
-        job.setReducerClass(BatchProcessingReducer.class);
+        job.setReducerClass(ReduceByCapteurAndDay.class);
         job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(Text.class);
+        job.setOutputValueClass(CapteurWritable.class);
 
         job.setInputFormatClass(SequenceFileInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
 
+        FileInputFormat.setInputDirRecursive(job, true);
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
@@ -56,7 +58,7 @@ public class BatchProcessing extends Configured implements Tool {
 	
 
 	public static void main(String[] args) throws Exception {
-		System.exit(ToolRunner.run(new DataCleaning(), args));
+		System.exit(ToolRunner.run(new BatchProcessing(), args));
 	}
 
 }

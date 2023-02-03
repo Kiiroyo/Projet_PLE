@@ -15,15 +15,15 @@ import Tools.*;
 public class CapteurWritable  implements org.apache.hadoop.io.Writable , Comparable<CapteurWritable>, Cloneable, Serializable{
 
     //<capteur, (jour, heures, minutes, catégorie, entre sur la fac ?, vitesse)>
-    public String capteurID;
-    public int year;
-    public int month;
-    public int day;
-    public int hours;
-    public double minutes;
-    public String category;
-    public double speed;
-    public boolean in;
+    private String capteurID;
+    private int year;
+    private int month;
+    private int day;
+    private int hours;
+    private double minutes;
+    private String category;
+    private double speed;
+    private boolean in;
 
     public CapteurWritable(){
 
@@ -39,6 +39,16 @@ public class CapteurWritable  implements org.apache.hadoop.io.Writable , Compara
         this.category = category;
         this.speed = speed;
         this.in = in;
+    }
+
+    public String getDate(){
+        StringBuilder date = new StringBuilder();
+        date.append(year);
+        date.append("/");
+        date.append(month);
+        date.append("/");
+        date.append(day);
+        return date.toString();
     }
 
 
@@ -104,31 +114,43 @@ public class CapteurWritable  implements org.apache.hadoop.io.Writable , Compara
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
-    }  
-    
-    /*@Override
-    private  void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        this.capteurID = in.readUTF();
-        this.year = in.readInt();
-        this.month = in.readInt();
-        this.day = in.readInt();
-        this.hours = in.readInt();
-        this.minutes = in.readDouble();
-        this.categoty = in.readUTF();
-        this.speed = in.readDouble();
-        this.in = in.readBoolean();
-   }
+    }
 
-    // méthode writeObject, utilisée lors de la sérialization
-    private  void writeObject(ObjectOutputStream out) throws IOException {
-        out.writeUTF(capteurID);
-        out.writeInt(year);
-        out.writeInt(month);
-        out.writeInt(day);
-        out.writeInt(hours);
-        out.writeDouble(minutes);
-        out.writeUTF(categoty);
-        out.writeDouble(speed);
-        out.writeBoolean(in);
-   }*/
+    public String getCapteurID() {
+        return capteurID;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public int getHours() {
+        return hours;
+    }
+
+    public double getMinutes() {
+        return minutes;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public boolean isIn() {
+        return in;
+    }  
+
+
 }

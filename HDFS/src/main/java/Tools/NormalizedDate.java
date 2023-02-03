@@ -1,8 +1,13 @@
 package Tools;
 
+import org.apache.hadoop.io.Writable;
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOError;
+import java.io.IOException;
+import static org.apache.hadoop.io.WritableUtils.*;
 
-
-public class NormalizedDate {
+public class NormalizedDate implements org.apache.hadoop.io.Writable , Comparable<NormalizedDate>, Cloneable {
 
     private int year = 2022;
     private int month = 10;
@@ -10,6 +15,16 @@ public class NormalizedDate {
     private int hour;
     private double minutes;
 
+    public NormalizedDate(){
+    }
+
+    public NormalizedDate(int year, int month, int day, int hour, double minutes){
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.hour = hour;
+        this.minutes = minutes;
+    }
     
     public NormalizedDate (String horodate){
         String[] date = horodate.split(" ");
@@ -46,6 +61,46 @@ public class NormalizedDate {
         this.year = Integer.parseInt(date[0]);
         this.month = Integer.parseInt(date[1]);
         this.day = Integer.parseInt(date[2]);
+    }
+
+   // @Override
+    public void write(DataOutput out) throws IOException{
+        out.writeInt(year);
+        out.writeInt(month);
+        out.writeInt(day);
+        out.writeInt(hour);
+        out.writeDouble(minutes);
+    }
+
+    //@Override
+    public void readFields(DataInput in) throws IOException {
+        this.year = in.readInt();
+        this.month = in.readInt();
+        this.day = in.readInt();
+        this.hour = in.readInt();
+        this.minutes = in.readDouble();
+    }
+
+    //@Override
+    public int compareTo(NormalizedDate date){
+        if (this.year == date.year && this.month == date.month) return Integer.compare(this.day, date.day);
+        if (this.year == date.year) return Integer.compare(this.month, date.month);
+        return Integer.compare(this.year, date.year);
+    }
+
+    @Override
+    public NormalizedDate clone(){
+        try{
+            NormalizedDate clone = (NormalizedDate) super.clone();
+            clone.year = this.year;
+            clone.month = this.month;
+            clone.day = this.day;
+            clone.hour = this.hour;
+            clone.minutes = this.minutes;
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 
     public int getYear() {

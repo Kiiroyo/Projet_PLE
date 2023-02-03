@@ -36,7 +36,7 @@ public class Spark {
 		int partitions = ubTrafic.getNumPartitions();
 		System.out.println("Nb partitions : " + partitions);*/
 
-		JavaPairRDD<Text,CapteurWritable> input  = context.sequenceFile(inputPath, Text.class, CapteurWritable.class);
+		/*JavaPairRDD<Text,CapteurWritable> input  = context.sequenceFile(inputPath, Text.class, CapteurWritable.class);
 
 		JavaRDD<CapteurWritable> serializableInput = input.map(
 			(x) -> {
@@ -46,7 +46,7 @@ public class Spark {
 
 		JavaPairRDD<String,CapteurWritable> ubTrafic = serializableInput.keyBy(
 			(x)->{
-				return x.capteurID;
+				return x.capteurID;  
 			}
 		);
 
@@ -109,6 +109,6 @@ public class Spark {
 					}		
 				}
 			}
-		}
+		}*/
 	}
 }

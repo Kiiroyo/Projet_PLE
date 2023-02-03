@@ -38,7 +38,7 @@ public class DataStatistiques {
     public void addData(CapteurWritable capteur){
         this.sum ++;
 
-        String category = capteur.category;
+        String category = capteur.getCategory();
         if (category.equalsIgnoreCase("VL")) this.vl += 1.0;
         else if (category.equalsIgnoreCase("PL")) this.pl += 1.0;
         else if (category.equalsIgnoreCase("2RM")) this.motos += 1.0;
@@ -46,9 +46,9 @@ public class DataStatistiques {
         else if (category.startsWith("VELO")) this.velo += 1.0 ;
         else this.other += 1.0;
 
-        if(capteur.in) this.in ++; else this.out ++;
+        if(capteur.isIn()) this.in ++; else this.out ++;
 
-        if (capteur.speed > 0) this.speed += capteur.speed;
+        if (capteur.getSpeed() > 0) this.speed += capteur.getSpeed();
     }
 
     public Summary computeSummary(){

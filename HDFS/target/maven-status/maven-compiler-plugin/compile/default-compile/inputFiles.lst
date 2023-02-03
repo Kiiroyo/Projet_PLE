@@ -7,6 +7,7 @@
 /Users/deborahnash/Documents/Fac/Projet_PLE/HDFS/src/main/java/mappers/DataCleaningMapperP13.java
 /Users/deborahnash/Documents/Fac/Projet_PLE/HDFS/src/main/java/mappers/DataCleaningMapperP19.java
 /Users/deborahnash/Documents/Fac/Projet_PLE/HDFS/src/main/java/Tools/Summary.java
+/Users/deborahnash/Documents/Fac/Projet_PLE/HDFS/src/main/java/batch_processing/ReduceByCapteurAndDay.java
 /Users/deborahnash/Documents/Fac/Projet_PLE/HDFS/src/main/java/mappers/DataCleaningMapperP24.java
 /Users/deborahnash/Documents/Fac/Projet_PLE/HDFS/src/main/java/mappers/DataCleaningMapperP17.java
 /Users/deborahnash/Documents/Fac/Projet_PLE/HDFS/src/main/java/Tools/CapteurWritable.java
@@ -16,6 +17,7 @@
 /Users/deborahnash/Documents/Fac/Projet_PLE/HDFS/src/main/java/Jobs/DataCleaning.java
 /Users/deborahnash/Documents/Fac/Projet_PLE/HDFS/src/main/java/Jobs/BatchProcessing.java
 /Users/deborahnash/Documents/Fac/Projet_PLE/HDFS/src/main/java/Tools/DataStatistiques.java
+/Users/deborahnash/Documents/Fac/Projet_PLE/HDFS/src/main/java/batch_processing/BatchProcessingMapper.java
 /Users/deborahnash/Documents/Fac/Projet_PLE/HDFS/src/main/java/mappers/DataCleaningMapperP20.java
 /Users/deborahnash/Documents/Fac/Projet_PLE/HDFS/src/main/java/mappers/DataCleaningMapperP12.java
 /Users/deborahnash/Documents/Fac/Projet_PLE/HDFS/src/main/java/mappers/DataCleaningMapperP3.java
