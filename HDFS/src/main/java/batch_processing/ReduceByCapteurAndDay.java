@@ -27,6 +27,8 @@ import Tools.Summary;
 //<capteur, (jour, heures, minutes, catégorie, entre sur la fac ?, vitesse)>
 public class ReduceByCapteurAndDay extends Reducer<Text, CapteurWritable, Text, CapteurWritable> {
 
+
+
     private  String TABLE_Hour_Sumary = "ahabachi:HourSummary";
     private  String TABLE_Day_Sumary  = "ahabachi:DaySummary";
 
