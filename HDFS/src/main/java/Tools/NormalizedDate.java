@@ -28,11 +28,19 @@ public class NormalizedDate implements org.apache.hadoop.io.Writable , Comparabl
     
     public NormalizedDate (String horodate){
         String[] date = horodate.split(" ");
-		String[] time = date[1].split(":");
-        
-        computeDate(date[0]);
+        String[] time;
+        if (date.length == 2) {
+            time = date[1].split(":");
+            computeDate(date[0]);
+            
+        }
+		else {
+            computeDate(horodate.substring(0, 9));
+            time = horodate.substring(10).split(":");
+        }
         this.hour = Integer.parseInt(time[0]);
         this.minutes = Double.parseDouble(time[1]);
+        
     }
 
     public NormalizedDate (String jour, String heuresMinutes){
@@ -45,7 +53,7 @@ public class NormalizedDate implements org.apache.hadoop.io.Writable , Comparabl
         
         String[] time = heuresMinutes.split(":");
         if (time.length != 2){
-            this.hour = Integer.parseInt(heuresMinutes.substring(0, 3));
+            this.hour = Integer.parseInt(heuresMinutes.substring(0, 2));
             this.minutes = Double.parseDouble(heuresMinutes.substring(2));
         }
         else {

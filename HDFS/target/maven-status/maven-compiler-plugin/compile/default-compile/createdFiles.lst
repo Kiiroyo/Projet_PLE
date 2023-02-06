@@ -1,4 +1,5 @@
 batch_processing/Spark.class
+bigdata/saving/Saving.class
 batch_processing/BatchProcessingMapper.class
 Tools/Summary.class
 Tools/CapteurWritable.class

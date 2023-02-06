@@ -18,8 +18,8 @@ import Jobs.*;
 public class Main {
     
     public static void main(String[] args) throws Exception {
-       //DataCleaning.main(args);
-        BatchProcessing.main(args);
+       DataCleaning.main(args);
+        //BatchProcessing.main(args);
         //Spark.main(args[0]);
     }
 }

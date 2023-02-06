@@ -27,9 +27,11 @@ public class DataCleaningMapperP17 extends Mapper<LongWritable, Text, Text, Capt
 			
 			
 			boolean in = data[0].equals("2");
+			String speedString = data[4];
+			Double speed = Double.parseDouble(speedString.substring(2));
 			
             // <capteur, (jour, heures, minutes, catégorie, entre sur la fac ?, vitesse)>
-			context.write(new Text("P17"), new CapteurWritable("P17",date,data[6],Double.parseDouble(data[4]),in));
+			context.write(new Text("P17"), new CapteurWritable("P17",date,data[6],speed,in));
 		}
 }
 
