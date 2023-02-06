@@ -41,7 +41,7 @@ import Tools.CapteurWritable;
 import Tools.DataStatistiques;
 import Tools.Summary;
 
-//<capteur, (jour, heures, minutes, catÃ©gorie, entre sur la fac ?, vitesse)>
+//<capteur, (jour, heures, minutes, catégorie, entre sur la fac ?, vitesse)>
 public class ReduceByCapteurAndDay extends Reducer<Text, CapteurWritable, Text, CapteurWritable> {
 
 
@@ -80,28 +80,28 @@ public class ReduceByCapteurAndDay extends Reducer<Text, CapteurWritable, Text, 
 
         Summary summary = dayStatistics.computeSummary();
         Put put = new Put(key.toString().getBytes());
-        put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes(summary.getTotalIn()));
-        put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes(summary.getTotalOut()));
-        put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes(summary.getAverageMotos()));
-        put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes(summary.getAverageSpeed()));
-        put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes(summary.getAverageBUS()));
-        put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes(summary.getAveragePL()));
-        put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes(summary.getAverageVL()));
-        put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes(capteurId));
+        put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("totalIn"), Bytes.toBytes(summary.getTotalIn()));
+        put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("totalOut"), Bytes.toBytes(summary.getTotalOut()));
+        put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("averageMotos"), Bytes.toBytes(summary.getAverageMotos()));
+        put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("averageSpeed"), Bytes.toBytes(summary.getAverageSpeed()));
+        put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("averageBus"), Bytes.toBytes(summary.getAverageBUS()));
+        put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("averagePl"), Bytes.toBytes(summary.getAveragePL()));
+        put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("averageVl"), Bytes.toBytes(summary.getAverageVL()));
+        put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("capteurId"), Bytes.toBytes(capteurId));
 
         List<Summary> hoursSummary = new ArrayList<Summary>();
         for (int i = 0 ; i < 24 ; ++i){
             hoursSummary.add(i, hours.get(i).computeSummary());
             Put p= new Put(key.toString().getBytes());
 
-            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes(hoursSummary.get(i).getTotalIn()));
-            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes(hoursSummary.get(i).getTotalOut()));
-            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes(hoursSummary.get(i).getAverageMotos()));
-            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes(hoursSummary.get(i).getAverageSpeed()));
-            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes(hoursSummary.get(i).getAverageBUS()));
-            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes(hoursSummary.get(i).getAveragePL()));
-            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes(hoursSummary.get(i).getAverageVL()));
-            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes(capteur.get(i).getCapteurID()));
+            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("totalIn"), Bytes.toBytes(hoursSummary.get(i).getTotalIn()));
+            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("totalOut"), Bytes.toBytes(hoursSummary.get(i).getTotalOut()));
+            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("averageMotos"), Bytes.toBytes(hoursSummary.get(i).getAverageMotos()));
+            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("averageSpeed"), Bytes.toBytes(hoursSummary.get(i).getAverageSpeed()));
+            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("averageBus"), Bytes.toBytes(hoursSummary.get(i).getAverageBUS()));
+            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("averagePl"), Bytes.toBytes(hoursSummary.get(i).getAveragePL()));
+            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("averageVl"), Bytes.toBytes(hoursSummary.get(i).getAverageVL()));
+            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("capteurId"), Bytes.toBytes(capteur.get(i).getCapteurID()));
         }
     }
     public  void createTable(Connection connect,String TABLE,String columnDesc) {
@@ -131,11 +131,6 @@ public class ReduceByCapteurAndDay extends Reducer<Text, CapteurWritable, Text, 
 
 
 }
-
-
-
-
-
 
 
 
