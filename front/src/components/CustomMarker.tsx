@@ -1,4 +1,5 @@
 import React from "react";
+// @ts-ignore
 import { Marker, Popup } from "react-leaflet";
 // @ts-ignore
 import cameraIcon from "../assets/cameraIcon.png";
@@ -6,8 +7,11 @@ import cameraIcon from "../assets/cameraIcon.png";
 import tubeIcon from "../assets/tubeIcon.png";
 // @ts-ignore
 import radarIcon from "../assets/radarIcon.png";
+// @ts-ignore
 import { Icon } from "leaflet";
+// @ts-ignore
 import { Typography } from "@mui/material";
+
 
 type Props = {
     title: string;
@@ -16,7 +20,8 @@ type Props = {
     description?: string;
 };
 
-const CustomMarker = ({ title, type, position, description }: Props) => {
+// @ts-ignore
+const CustomMarker = ({ title, type, position, description }) => {
     const cameraMarker = new Icon({
         iconUrl: cameraIcon,
         iconRetinaUrl: cameraIcon,
@@ -38,6 +43,8 @@ const CustomMarker = ({ title, type, position, description }: Props) => {
         iconSize: [30, 30],
     });
 
+    // @ts-ignore
+    // @ts-ignore
     return (
         <Marker
             position={position}

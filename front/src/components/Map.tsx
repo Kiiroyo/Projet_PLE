@@ -57,8 +57,7 @@ const Map = () => {
                         position={[
                             marker.location.latitude,
                             marker.location.longitude,
-                        ]}
-                    />
+                        ]} description={undefined}/>
                 ))}
             </MapContainer>
         </Box>
