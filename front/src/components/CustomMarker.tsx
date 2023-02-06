@@ -21,7 +21,7 @@ type Props = {
 };
 
 // @ts-ignore
-const CustomMarker = ({ title, type, position, description }) => {
+const CustomMarker = ({ title, type, position }) => {
     const cameraMarker = new Icon({
         iconUrl: cameraIcon,
         iconRetinaUrl: cameraIcon,
@@ -67,7 +67,7 @@ const CustomMarker = ({ title, type, position, description }) => {
                 <Typography variant="body2" textAlign="center">
                     {type}
                 </Typography>
-                <Typography variant="body2">{description}</Typography>
+
             </Popup>
         </Marker>
     );
