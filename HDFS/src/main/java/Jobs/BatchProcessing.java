@@ -17,6 +17,15 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
+import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
+import java.io.IOException;
+
+import org.apache.hadoop.hbase.client.Connection;
+import org.apache.hadoop.hbase.client.ConnectionFactory;
+
+import hbase.WriteToHBase;
+
+import org.apache.hadoop.hbase.HBaseConfiguration;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -24,6 +33,7 @@ import java.io.IOException;
 import java.util.TreeSet;
 
 import Tools.*;
+
 import batch_processing.*;
 
 public class BatchProcessing extends Configured implements Tool {
@@ -46,6 +56,15 @@ public class BatchProcessing extends Configured implements Tool {
 
         job.setInputFormatClass(SequenceFileInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
+
+        
+        ReduceByCapteurAndDay writeToHBase = new ReduceByCapteurAndDay();
+        Configuration config =  HBaseConfiguration.create();
+        Connection connection = ConnectionFactory.createConnection(config);
+
+        writeToHBase.createTable(connection,writeToHBase.getTABLE_Day_Sumary(),"TABLE_Day_Sumary");
+        writeToHBase.createTable(connection,writeToHBase.getTABLE_Hour_Sumary(),"TABLE_Hour_Sumary");
+
 
         FileInputFormat.setInputDirRecursive(job, true);
         FileInputFormat.addInputPath(job, new Path(args[0]));
