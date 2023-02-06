@@ -49,6 +49,16 @@ public class ReduceByCapteurAndDay extends Reducer<Text, CapteurWritable, Text, 
     private  String TABLE_Hour_Sumary = "ahabachi:HourSummary";
     private  String TABLE_Day_Sumary  = "ahabachi:DaySummary";
 
+    public String getTABLE_Hour_Sumary() {
+        return TABLE_Hour_Sumary ;
+    }
+    public String getTABLE_Day_Sumary() {
+        return TABLE_Day_Sumary;
+    }
+
+
+
+
     @Override
     protected void reduce(Text key, Iterable<CapteurWritable> values, Reducer<Text, CapteurWritable, Text, CapteurWritable>.Context context) throws IOException, InterruptedException {
         DataStatistiques dayStatistics = new DataStatistiques();
@@ -121,6 +131,9 @@ public class ReduceByCapteurAndDay extends Reducer<Text, CapteurWritable, Text, 
 
 
 }
+
+
+
 
 
 
