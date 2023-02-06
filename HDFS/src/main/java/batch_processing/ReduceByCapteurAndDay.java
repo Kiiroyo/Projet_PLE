@@ -63,7 +63,7 @@ public class ReduceByCapteurAndDay extends Reducer<Text, CapteurWritable, Text, 
     protected void reduce(Text key, Iterable<CapteurWritable> values, Reducer<Text, CapteurWritable, Text, CapteurWritable>.Context context) throws IOException, InterruptedException {
         DataStatistiques dayStatistics = new DataStatistiques();
 
-        String capteurId = key.split(" ")[0];
+        String capteurId = key.toString().split(" ")[0];
 
         //intialisation
         List<DataStatistiques> hours = new ArrayList<DataStatistiques>();
@@ -101,7 +101,7 @@ public class ReduceByCapteurAndDay extends Reducer<Text, CapteurWritable, Text, 
             p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("averageBus"), Bytes.toBytes(hoursSummary.get(i).getAverageBUS()));
             p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("averagePl"), Bytes.toBytes(hoursSummary.get(i).getAveragePL()));
             p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("averageVl"), Bytes.toBytes(hoursSummary.get(i).getAverageVL()));
-            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("capteurId"), Bytes.toBytes(capteur.get(i).getCapteurID()));
+            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("capteurId"), Bytes.toBytes(capteurId));
         }
     }
     public  void createTable(Connection connect,String TABLE,String columnDesc) {
