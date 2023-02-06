@@ -18,8 +18,9 @@ import Jobs.*;
 public class Main {
     
     public static void main(String[] args) throws Exception {
-        //DataCleaning.main(args);
-        BatchProcessing.main(args);
-       
+        if (args.length > 2 && args[2].equals("cleanning"))
+            DataCleaning.main(args);
+        else
+            BatchProcessing.main(args);
     }
 }

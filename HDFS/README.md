@@ -1,2 +1,11 @@
 # Projet_PLE
-Le projet de PLE de fin de semestre du M2 GL 2023
+
+
+# to compile and generate the jar file use :
+mvn compile && mvn package
+
+# to run the DataCleanning in hdfs use :
+yarn jar <jarName> /user/auber/data_ple/citytraffic/ResultatCSV/ <outputFolder> cleanning
+
+# to run the batchProcessing in hdfs use :
+yarn jar <jarName> <inputFolder> <outputFolder>

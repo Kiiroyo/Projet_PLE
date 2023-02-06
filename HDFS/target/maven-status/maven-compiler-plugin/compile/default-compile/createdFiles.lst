@@ -1,6 +1,6 @@
-batch_processing/Spark.class
-batch_processing/BatchProcessingMapper.class
 Tools/Summary.class
 Tools/CapteurWritable.class
+batch_processing/Spark.class
+batch_processing/BatchProcessingMapper.class
 Tools/DataStatistiques.class
 batch_processing/ReduceByCapteurAndDay.class
