@@ -26,14 +26,14 @@ public class DataStatistiques {
         this.in = 0;
         this.out = 0;
 
-        this.vl = 0;
-        this.pl = 0;
-        this.motos = 0;
-        this.bus = 0;
-        this.velo = 0;
-        this.other = 0;
+        this.vl = 0.0;
+        this.pl = 0.0;
+        this.motos = 0.0;
+        this.bus = 0.0;
+        this.velo = 0.0;
+        this.other = 0.0;
 
-        this.speed = 0;
+        this.speed = 0.0;
         this.speedSum = 0;
     }
 

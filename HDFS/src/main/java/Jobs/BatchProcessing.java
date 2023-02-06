@@ -41,6 +41,7 @@ public class BatchProcessing extends Configured implements Tool {
 	
 	public int run(String[] args) throws Exception {
 		Configuration conf = new Configuration();
+        conf.set("mapred.textoutputformat.separator", ",");
 
         Job job = Job.getInstance(conf, "BatchProcessing");
         job.setNumReduceTasks(1);
