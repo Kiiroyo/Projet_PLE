@@ -31,7 +31,7 @@ public class DataCleaning extends Configured implements Tool {
 		job.setNumReduceTasks(0);
 		job.setJarByClass(DataCleaning.class);
 		
-		//MultipleInputs.addInputPath(job, new Path(args[0] + "P1/P1.csv" ), TextInputFormat.class, DataCleaningMapperP1.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P1/P1.csv" ), TextInputFormat.class, DataCleaningMapperP1.class);
 
 		MultipleInputs.addInputPath(job, new Path(args[0] + "P10/P10.csv" ), TextInputFormat.class, DataCleaningMapperP10.class);
 
@@ -64,10 +64,10 @@ public class DataCleaning extends Configured implements Tool {
 
 		//MultipleInputs.addInputPath(job, new Path(args[0] + "P4/P4_Sortie_Fac.csv" ), TextInputFormat.class, DataCleaningMapperP4.class);
 
-		MultipleInputs.addInputPath(job, new Path(args[0] + "P9/P9_Vers_Fac_1.csv" ), TextInputFormat.class, DataCleaningMapperP1.class);
-		MultipleInputs.addInputPath(job, new Path(args[0] + "P9/P9_Vers_Fac_2.csv" ), TextInputFormat.class, DataCleaningMapperP1.class);
-		MultipleInputs.addInputPath(job, new Path(args[0] + "P9/P9_Vers_Talence_1.csv" ), TextInputFormat.class, DataCleaningMapperP1.class);
-		MultipleInputs.addInputPath(job, new Path(args[0] + "P9/P9_Vers_Talence_2.csv" ), TextInputFormat.class, DataCleaningMapperP1.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P9/P9_Vers_Fac_1.csv" ), TextInputFormat.class, DataCleaningMapperP9.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P9/P9_Vers_Fac_2.csv" ), TextInputFormat.class, DataCleaningMapperP9.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P9/P9_Vers_Talence_1.csv" ), TextInputFormat.class, DataCleaningMapperP9.class);
+		MultipleInputs.addInputPath(job, new Path(args[0] + "P9/P9_Vers_Talence_2.csv" ), TextInputFormat.class, DataCleaningMapperP9.class);
 
 
 		job.setMapOutputKeyClass(Text.class);
@@ -79,7 +79,16 @@ public class DataCleaning extends Configured implements Tool {
 		
 		TextOutputFormat.setOutputPath(job, new Path(args[1]));
 		
-		return job.waitForCompletion(true) ? 0 : 1;
+		//return job.waitForCompletion(true) ? 0 : 1;
+
+		long startTime = System.currentTimeMillis();
+        boolean result = job.waitForCompletion(true);
+        long endTime = System.currentTimeMillis();
+
+        System.out.println("Durée totale : " + (endTime - startTime));
+		
+		System.exit(result ? 0 : 1);
+        return 0;
 	}
 	
 
