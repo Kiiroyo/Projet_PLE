@@ -52,26 +52,31 @@ public class BatchProcessing extends Configured implements Tool {
 
         job.setReducerClass(ReduceByCapteurAndDay.class);
         job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(CapteurWritable.class);
+        job.setOutputValueClass(Text.class);
 
         job.setInputFormatClass(SequenceFileInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
 
         
-        ReduceByCapteurAndDay writeToHBase = new ReduceByCapteurAndDay();
+        /*ReduceByCapteurAndDay writeToHBase = new ReduceByCapteurAndDay();
         Configuration config =  HBaseConfiguration.create();
         Connection connection = ConnectionFactory.createConnection(config);
 
         writeToHBase.createTable(connection,writeToHBase.getTABLE_Day_Sumary(),"TABLE_Day_Sumary");
-        writeToHBase.createTable(connection,writeToHBase.getTABLE_Hour_Sumary(),"TABLE_Hour_Sumary");
+        writeToHBase.createTable(connection,writeToHBase.getTABLE_Hour_Sumary(),"TABLE_Hour_Sumary");*/
 
 
         FileInputFormat.setInputDirRecursive(job, true);
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
+        long startTime = System.currentTimeMillis();
         boolean result = job.waitForCompletion(true);
-        System.exit(result ? 0 : 1);
+        long endTime = System.currentTimeMillis();
+
+        System.out.println("Durée totale : " + (endTime - startTime) + "ms");
+		
+		System.exit(result ? 0 : 1);
         return 0;
 	}
 	

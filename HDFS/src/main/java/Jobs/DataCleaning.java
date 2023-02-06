@@ -79,13 +79,12 @@ public class DataCleaning extends Configured implements Tool {
 		
 		TextOutputFormat.setOutputPath(job, new Path(args[1]));
 		
-		//return job.waitForCompletion(true) ? 0 : 1;
 
 		long startTime = System.currentTimeMillis();
         boolean result = job.waitForCompletion(true);
         long endTime = System.currentTimeMillis();
 
-        System.out.println("Durée totale : " + (endTime - startTime));
+        System.out.println("Durée totale : " + (endTime - startTime) + "ms");
 		
 		System.exit(result ? 0 : 1);
         return 0;

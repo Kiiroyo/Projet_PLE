@@ -16,6 +16,7 @@ public class DataStatistiques {
     private double velo;
     private double other;
 
+    private int speedSum;
     private double speed;
     
     
@@ -33,6 +34,7 @@ public class DataStatistiques {
         this.other = 0;
 
         this.speed = 0;
+        this.speedSum = 0;
     }
 
     public void addData(CapteurWritable capteur){
@@ -48,10 +50,13 @@ public class DataStatistiques {
 
         if(capteur.isIn()) this.in ++; else this.out ++;
 
-        if (capteur.getSpeed() > 0) this.speed += capteur.getSpeed();
+        if (capteur.getSpeed() > 0) {
+            this.speed += capteur.getSpeed();
+            this.speedSum ++;
+        }
     }
 
     public Summary computeSummary(){
-        return new Summary(this.in, this.out,  this.pl/this.sum, this.vl/this.sum, this.bus/this.sum, this.motos/this.sum, this.speed/this.sum);
+        return new Summary(this.in, this.out,  this.pl/this.sum, this.vl/this.sum, this.bus/this.sum, this.motos/this.sum, this.other/this.sum, this.speed/this.speedSum);
     }
 }

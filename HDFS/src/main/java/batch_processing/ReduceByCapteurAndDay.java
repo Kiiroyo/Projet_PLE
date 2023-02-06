@@ -42,11 +42,11 @@ import Tools.DataStatistiques;
 import Tools.Summary;
 
 //<capteur, (jour, heures, minutes, catégorie, entre sur la fac ?, vitesse)>
-public class ReduceByCapteurAndDay extends Reducer<Text, CapteurWritable, Text, CapteurWritable> {
+public class ReduceByCapteurAndDay extends Reducer<Text, CapteurWritable, Text, Text> {
 
 
 
-    private  String TABLE_Hour_Sumary = "ahabachi:HourSummary";
+    /*private  String TABLE_Hour_Sumary = "ahabachi:HourSummary";
     private  String TABLE_Day_Sumary  = "ahabachi:DaySummary";
 
     public String getTABLE_Hour_Sumary() {
@@ -54,16 +54,18 @@ public class ReduceByCapteurAndDay extends Reducer<Text, CapteurWritable, Text, 
     }
     public String getTABLE_Day_Sumary() {
         return TABLE_Day_Sumary;
-    }
+    }*/
 
 
 
 
     @Override
-    protected void reduce(Text key, Iterable<CapteurWritable> values, Reducer<Text, CapteurWritable, Text, CapteurWritable>.Context context) throws IOException, InterruptedException {
+    protected void reduce(Text key, Iterable<CapteurWritable> values, Reducer<Text, CapteurWritable, Text, Text>.Context context) throws IOException, InterruptedException {
         DataStatistiques dayStatistics = new DataStatistiques();
 
-        String capteurId = key.toString().split(" ")[0];
+        String[] keySplit = key.toString().split(":");
+        String capteurId = keySplit[0];
+        String date = keySplit[1];
 
         //intialisation
         List<DataStatistiques> hours = new ArrayList<DataStatistiques>();
@@ -74,12 +76,11 @@ public class ReduceByCapteurAndDay extends Reducer<Text, CapteurWritable, Text, 
         for (CapteurWritable capteur : values){
 
             dayStatistics.addData(capteur);
-            hours.get(capteur.getHours()).addData(capteur);
-            context.write(key, capteur); 
+            hours.get(capteur.getHours()).addData(capteur); 
         }
 
         Summary summary = dayStatistics.computeSummary();
-        Put put = new Put(key.toString().getBytes());
+        /*Put put = new Put(key.toString().getBytes());
         put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("totalIn"), Bytes.toBytes(summary.getTotalIn()));
         put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("totalOut"), Bytes.toBytes(summary.getTotalOut()));
         put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("averageMotos"), Bytes.toBytes(summary.getAverageMotos()));
@@ -87,12 +88,14 @@ public class ReduceByCapteurAndDay extends Reducer<Text, CapteurWritable, Text, 
         put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("averageBus"), Bytes.toBytes(summary.getAverageBUS()));
         put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("averagePl"), Bytes.toBytes(summary.getAveragePL()));
         put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("averageVl"), Bytes.toBytes(summary.getAverageVL()));
-        put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("capteurId"), Bytes.toBytes(capteurId));
+        put.addColumn(Bytes.toBytes("TABLE_Day_Sumary"), Bytes.toBytes("capteurId"), Bytes.toBytes(capteurId));*/
 
         List<Summary> hoursSummary = new ArrayList<Summary>();
         for (int i = 0 ; i < 24 ; ++i){
             hoursSummary.add(i, hours.get(i).computeSummary());
-            Put p= new Put(key.toString().getBytes());
+
+            context.write(new Text(capteurId + "," + date + "," + i), new Text(hoursSummary.get(i).toString()));
+            /*Put p= new Put(key.toString().getBytes());
 
             p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("totalIn"), Bytes.toBytes(hoursSummary.get(i).getTotalIn()));
             p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("totalOut"), Bytes.toBytes(hoursSummary.get(i).getTotalOut()));
@@ -101,10 +104,10 @@ public class ReduceByCapteurAndDay extends Reducer<Text, CapteurWritable, Text, 
             p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("averageBus"), Bytes.toBytes(hoursSummary.get(i).getAverageBUS()));
             p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("averagePl"), Bytes.toBytes(hoursSummary.get(i).getAveragePL()));
             p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("averageVl"), Bytes.toBytes(hoursSummary.get(i).getAverageVL()));
-            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("capteurId"), Bytes.toBytes(capteurId));
+            p.addColumn(Bytes.toBytes("TABLE_Hour_Sumary"), Bytes.toBytes("capteurId"), Bytes.toBytes(capteurId));*/
         }
     }
-    public  void createTable(Connection connect,String TABLE,String columnDesc) {
+    /*public  void createTable(Connection connect,String TABLE,String columnDesc) {
         try {
             final Admin admin = connect.getAdmin();
             TableDescriptorBuilder tableDescriptorBuilder = TableDescriptorBuilder.newBuilder(TableName.valueOf(TABLE));
@@ -119,19 +122,5 @@ public class ReduceByCapteurAndDay extends Reducer<Text, CapteurWritable, Text, 
             e.printStackTrace();
             System.exit(-1);
         }
-    }
-
-
-
-
-
-
-
-
-
-
+    }*/
 }
-
-
-
-
